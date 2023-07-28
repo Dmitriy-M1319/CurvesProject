@@ -1,11 +1,18 @@
 #include "helix.h"
 #include <cmath>
+#include <stdexcept>
 
 using namespace Curves;
 
 
-Helix::Helix(const float& radius, const float& step): 
-    radius(radius), step(step / (2 * M_PIf)) {}
+Helix::Helix(const float& radius, const float& step)
+{
+    if(radius <= 0)
+        throw std::invalid_argument{"Incorrect radius value"};
+
+    this->radius = radius;
+    this->step = step / (2 * M_PIf);
+}
 
 
 float Helix::get_radius()

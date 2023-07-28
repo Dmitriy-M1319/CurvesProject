@@ -1,11 +1,18 @@
 #include "ellipse.h"
 #include <cmath>
+#include <stdexcept>
 
 using namespace Curves;
 
 
-Ellipse::Ellipse(const float& radius_first, const float& radius_second): 
-    radius_first(radius_first), radius_second(radius_second) {}
+Ellipse::Ellipse(const float& radius_first, const float& radius_second)
+{
+    if(radius_first <= 0 || radius_second <= 0)
+        throw std::invalid_argument{"Incorrect radius value"};
+
+    this->radius_first = radius_first;
+    this->radius_second = radius_second;
+}
 
 
 float Ellipse::get_radius_first()

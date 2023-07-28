@@ -5,7 +5,6 @@
 
 namespace Curves
 {
-    // подумать над лучшей реализацией наследования
     class Ellipse: public Curve
     {
     public:

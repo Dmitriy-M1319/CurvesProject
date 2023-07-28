@@ -9,6 +9,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <cmath>
+#include <format>
 
 
 enum class CurveType 
@@ -26,7 +27,7 @@ void fill_vector_random_curves(std::vector<Curves::Curve *> &curves)
     for (int i = 0; i < vector_size; ++i) 
     {
         auto curve_type = static_cast<CurveType>(1 + std::rand() % 4);
-        float radius_first, step;
+        float radius_first, radius_second, step;
         switch (curve_type) 
         {
             case CurveType::Circle:
@@ -35,12 +36,12 @@ void fill_vector_random_curves(std::vector<Curves::Curve *> &curves)
                 break;
             case CurveType::Ellipse:
                 radius_first = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
-                float radius_second = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+                radius_second = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
                 curves.push_back(new Curves::Ellipse(radius_first, radius_second));
                 break;
             case CurveType::Helix:
                 radius_first = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
-                float step = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+                step = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
                 curves.push_back(new Curves::Helix(radius_first, step));
                 break;
         }
@@ -54,13 +55,12 @@ void print_data(const std::vector<Curves::Curve *> &curves)
     {
         Point result_point = curves[i]->calc_point(M_PI_4f);
         Vector result_vector = curves[i]->calc_derivative(M_PI_4f);
-        std::cout << "Object №" << i + 1 << ": Point {" 
-            << std::get<0>(result_point) << ", "
-            << std::get<1>(result_point) << ", "
-            << std::get<2>(result_point) << "}, Derivative ("
-            << std::get<0>(result_vector) << ", "
-            << std::get<1>(result_vector) << ", "
-            << std::get<2>(result_vector) << ")" << std::endl;
+        std::cout << std::format("Object № {}\n", i + 1) << "\tPoint {"
+            << std::format("{:.3f}, {:.3f}, {:.3f}", 
+                std::get<0>(result_point), std::get<1>(result_point), std::get<2>(result_point)) << "}\n"
+            << "\tDerivative ("
+            << std::format("{:.3f}, {:.3f}, {:.3f}", 
+                std::get<0>(result_vector), std::get<1>(result_vector), std::get<2>(result_vector)) << ")\n";
     }
 }
 

@@ -14,6 +14,7 @@ namespace Curves
     public:
         virtual Point calc_point(float t) = 0;
         virtual Vector calc_derivative(float t) = 0;
+        virtual ~Curve();
     };
 };
 

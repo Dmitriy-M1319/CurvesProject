@@ -1,5 +1,5 @@
 ## Test task for working with equations of curves
-C++ standart - C++20
+C++ standard - C++20
 
 Build:
 
